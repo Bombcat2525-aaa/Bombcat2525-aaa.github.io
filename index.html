@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ site_title }} | 日本語ブログ</title>
-  <meta name="description" content="{{ site_description }}">
+  <title>AI自動ブログ | 日本語ブログ</title>
+  <meta name="description" content="準備完了。最初の記事生成を待っています。">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#0b0f19">
 
@@ -17,7 +17,6 @@
       --muted: #9aa4b2;
       --line: #28324a;
       --accent: #7aa2ff;
-      --accent-strong: #9db9ff;
       --shadow: 0 8px 24px rgba(0,0,0,.24);
       --radius: 14px;
       --container: 1080px;
@@ -80,55 +79,16 @@
       align-items: stretch;
     }
 
-    .post-card{
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    .placeholder-card{
       min-height: 132px;
-      padding: 1rem 1rem .95rem;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.01), rgba(255,255,255,0)) , var(--card);
-      box-shadow: var(--shadow);
-      text-decoration: none;
-      color: var(--text);
-      transition: transform .14s ease, border-color .14s ease, background-color .14s ease;
-      will-change: transform;
-    }
-
-    .post-card:hover,
-    .post-card:focus-visible{
-      transform: translateY(-2px);
-      border-color: #3a4b74;
-      outline: none;
-    }
-
-    .post-title{
-      margin: 0;
-      font-size: 1rem;
-      line-height: 1.45;
-      word-break: break-word;
-      overflow-wrap: anywhere;
-    }
-
-    .post-more{
-      margin-top: .9rem;
-      font-size: .86rem;
-      color: var(--accent);
-    }
-
-    .post-card:hover .post-more,
-    .post-card:focus-visible .post-more{
-      color: var(--accent-strong);
-    }
-
-    .empty{
-      margin: 0;
       padding: 1rem;
       border: 1px dashed var(--line);
-      border-radius: 10px;
-      color: var(--muted);
+      border-radius: var(--radius);
       background: var(--bg-soft);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      line-height: 1.7;
     }
 
     footer{
@@ -146,44 +106,30 @@
         grid-template-columns: 1fr;
       }
     }
-
-    @media (prefers-reduced-motion: reduce){
-      .post-card{
-        transition: none;
-      }
-    }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap">
-      <h1 class="site-title">{{ site_title }}</h1>
-      <p class="site-description">{{ site_description }}</p>
+      <h1 class="site-title">AI自動ブログ</h1>
+      <p class="site-description">準備完了。最初の記事生成を待っています。</p>
     </div>
   </header>
 
   <main>
     <div class="wrap">
       <h2 class="section-title">記事一覧</h2>
-
       <section class="posts-grid" aria-label="ブログ記事一覧">
-        {% for post in posts %}
-        <a class="post-card" href="{{ post.url }}" aria-label="{{ post.title }}">
-          <p class="post-title">{{ post.title }}</p>
-          <span class="post-more">記事を読む →</span>
-        </a>
-        {% endfor %}
+        <div class="placeholder-card">
+          まだ記事がありません。新しい記事を追加すると、ここに表示されます。
+        </div>
       </section>
-
-      {% if posts|length == 0 %}
-      <p class="empty">まだ記事がありません。新しい記事を追加すると、ここに表示されます。</p>
-      {% endif %}
     </div>
   </main>
 
   <footer>
     <div class="wrap">
-      <small>&copy; {{ site_title }}. All rights reserved.</small>
+      <small>&copy; AI自動ブログ. All rights reserved.</small>
     </div>
   </footer>
 </body>
