@@ -1,136 +1,53 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI自動ブログ | 日本語ブログ</title>
-  <meta name="description" content="準備完了。最初の記事生成を待っています。">
-  <meta name="robots" content="index,follow">
-  <meta name="theme-color" content="#0b0f19">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI自動ブログ</title>
+  <meta name="description" content="AIで記事を自動生成してGitHub Pagesに公開するブログ" />
+  <meta name="robots" content="index,follow" />
   <style>
-    :root{
-      --bg: #0b0f19;
-      --bg-soft: #121829;
-      --card: #151d31;
-      --text: #e6eaf2;
-      --muted: #9aa4b2;
-      --line: #28324a;
-      --accent: #7aa2ff;
-      --shadow: 0 8px 24px rgba(0,0,0,.24);
-      --radius: 14px;
-      --container: 1080px;
-    }
-
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
-
-    body{
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN",
-                   "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", Meiryo, sans-serif;
-      background: linear-gradient(180deg, #0b0f19 0%, #0d1322 100%);
-      color: var(--text);
-      line-height: 1.7;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .wrap{
-      width: min(100% - 2rem, var(--container));
-      margin-inline: auto;
-    }
-
-    header{
-      padding: 3.2rem 0 1.6rem;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 1.4rem;
-    }
-
-    .site-title{
-      margin: 0 0 .4rem;
-      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
-      line-height: 1.25;
-      letter-spacing: .01em;
-    }
-
-    .site-description{
-      margin: 0;
-      color: var(--muted);
-      font-size: .98rem;
-      max-width: 70ch;
-    }
-
-    main{
-      padding: 1rem 0 2.5rem;
-    }
-
-    .section-title{
-      margin: 0 0 1rem;
-      font-size: 1.05rem;
-      color: var(--muted);
-      font-weight: 600;
-      letter-spacing: .02em;
-    }
-
-    .posts-grid{
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 14px;
-      align-items: stretch;
-    }
-
-    .placeholder-card{
-      min-height: 132px;
-      padding: 1rem;
-      border: 1px dashed var(--line);
-      border-radius: var(--radius);
-      background: var(--bg-soft);
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      line-height: 1.7;
-    }
-
-    footer{
-      border-top: 1px solid var(--line);
-      padding: 1.2rem 0 2.4rem;
-      color: var(--muted);
-      font-size: .9rem;
-    }
-
-    @media (max-width: 640px){
-      header{
-        padding-top: 2.3rem;
-      }
-      .posts-grid{
-        grid-template-columns: 1fr;
-      }
-    }
+    body { font-family: "Yu Gothic UI", "Meiryo", sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.8; color:#222; }
+    h1 { margin-bottom: 0.2rem; }
+    .desc { color:#666; margin-bottom: 1.5rem; }
+    ul { list-style: none; padding: 0; }
+    li { border-bottom: 1px solid #eee; padding: 0.8rem 0; }
+    .date { color:#777; font-size: 0.9rem; margin-right: 0.8rem; }
+    a { color: #0b57d0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
   <header>
-    <div class="wrap">
-      <h1 class="site-title">AI自動ブログ</h1>
-      <p class="site-description">準備完了。最初の記事生成を待っています。</p>
-    </div>
+    <h1>AI自動ブログ</h1>
+    <p class="desc">AIで記事を自動生成してGitHub Pagesに公開するブログ</p>
   </header>
 
   <main>
-    <div class="wrap">
-      <h2 class="section-title">記事一覧</h2>
-      <section class="posts-grid" aria-label="ブログ記事一覧">
-        <div class="placeholder-card">
-          まだ記事がありません。新しい記事を追加すると、ここに表示されます。
-        </div>
-      </section>
-    </div>
+    <h2>記事一覧</h2>
+    <ul>
+      
+      <li>
+        <span class="date">2026-05-09</span>
+        <a href="posts/20260509234602-houdini-vfx.html">Houdiniで始めるVFX入門</a>
+      </li>
+      
+      <li>
+        <span class="date">2026-05-09</span>
+        <a href="posts/20260509232750-houdini-vfx.html">Houdiniで始めるVFX入門</a>
+      </li>
+      
+      <li>
+        <span class="date">2026-05-09</span>
+        <a href="posts/20260509223318-houdini-vfx.html">Houdiniで始めるVFX入門</a>
+      </li>
+      
+      <li>
+        <span class="date">2026-05-09</span>
+        <a href="posts/20260509222951-houdini-vfx.html">Houdiniで始めるVFX入門</a>
+      </li>
+      
+    </ul>
   </main>
-
-  <footer>
-    <div class="wrap">
-      <small>&copy; AI自動ブログ. All rights reserved.</small>
-    </div>
-  </footer>
 </body>
 </html>

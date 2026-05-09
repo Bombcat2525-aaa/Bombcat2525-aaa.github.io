@@ -1,0 +1,91 @@
+<!--TITLE:Houdiniで始めるVFX入門-->
+<!--DATE:2026-05-09-->
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Houdiniで始めるVFX入門 | AI自動ブログ</title>
+  <meta name="description" content="AIで記事を自動生成してGitHub Pagesに公開するブログ" />
+  <meta name="robots" content="index,follow" />
+  <style>
+    body { font-family: "Yu Gothic UI", "Meiryo", sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.9; color:#222; }
+    h1, h2, h3 { line-height: 1.4; }
+    .meta { color: #666; font-size: 0.95rem; margin-bottom: 1rem; }
+    a { color: #0b57d0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { margin-top: 2rem; display: inline-block; }
+  </style>
+</head>
+<body>
+  <header>
+    <p><a href="../index.html">← トップへ戻る</a></p>
+    <h1>Houdiniで始めるVFX入門</h1>
+    <p class="meta">公開日: 2026-05-09</p>
+  </header>
+
+  <main>
+    <h1>Houdiniで始めるVFX入門</h1>
+<p>こんにちは！最近、映画やゲームなどで見かけるVFX（視覚効果）が興味深いと感じる方もいるかもしれませんね。しかし、VFXの制作には専門的な知識が必要そうに思えるかもしれませんが、実際はそのハードルを下げるツールがあります。それが「Houdini」です。</p>
+<h2>Houdiniとは</h2>
+<p>Houdiniは、3Dアニメーションや映画制作における効果表現のためのソフトウェアです。VFX制作において重要な役割を果たすHoudiniですが、最初から使いこなすのは難しいと感じるかもしれません。そこでこの記事では、初心者でも気軽に始められる入門編として、Houdiniを使ってVFXを作成する方法をお伝えします。</p>
+<h2>Houdiniの特徴</h2>
+<h3>ノードベースのワークフロー</h3>
+<p>Houdiniはノードベースのワークフローを採用しています。これは、各プロセスが個別のノード（ブロック）として表現され、これらを接続することで効果を作成する方法です。ノードには様々な種類があり、例えば「時間」というノードを使ってアニメーションを作ったり、「生成」ノードを使って形状を生成したりすることができます。</p>
+<h3>オープンソースで拡張性が高い</h3>
+<p>Houdiniは完全にオープンソース化されており、コミュニティによって開発される多くのプラグインやツールが利用可能です。これにより、自身のワークフローに最適な方法でVFXを作成することができます。</p>
+<h2>HoudiniでのVFX作成例</h2>
+<h3>初心者向けの簡単な効果</h3>
+<p>ここでは、「文字エフェクト」をHoudiniを使って作成する方法を紹介します。具体的には、入力されたテキストにさまざまなアニメーション効果を適用し、動くメッセージを作ります。</p>
+<p>1. **ノードエディタの起動**</p>
+<ul>
+<li>Houdiniを開き、「Node Editor」を選択します。</li>
+</ul>
+<p>2. **ノードの追加**</p>
+<ul>
+<li>「Text」ノードと「Time»Ani Time」ノードを追加します。これらのノードは、テキストを作成し、時間に応じてアニメーション化するためのものです。</li>
+</ul>
+<p>3. **接続**</p>
+<ul>
+<li>「Text」ノードから「String In」という入力端子を引き、「Time»Ani Time」ノードの「Time Out」出力端子につなげます。</li>
+</ul>
+<p>4. **表示設定**</p>
+<ul>
+<li>「Viewer」ノードを選択し、右クリックして「Viewport」を選択します。これにより、Houdini上でアニメーションがどのように見えるか確認できます。</li>
+</ul>
+<p>5. **実行**</p>
+<ul>
+<li>上記の設定後、「Play」ボタンを押すことでアニメーションを作成することができます。</li>
+</ul>
+<h2>実際のVFX作品</h2>
+<h3>バリウス効果</h3>
+<p>バリウス効果は、物体が動き出すと粒子や雲のようなエフェクトが生成されるもので、多くの映画やゲームに使用されます。Houdiniでは、「Particle」ノードを使用してパーティクルを作成し、アニメーションと結合することで実現できます。</p>
+<p>1. **Particleノードの追加**</p>
+<ul>
+<li>「Node Editor」を開き、「Particle»Point Cloud»Particles」を追加します。</li>
+</ul>
+<p>2. **動画生成**</p>
+<ul>
+<li>「Time»Ani Time」ノードを使って時間に応じたアニメーションを生成し、それを「Particle」ノードに入力端子につなげます。</li>
+</ul>
+<p>3. **結果確認**</p>
+<ul>
+<li>これでバリウス効果が生成されます。パーティクルの動きは時間とともに変化しますので、「Play」ボタンで確認することができます。</li>
+</ul>
+<h2>読者の疑問への回答</h2>
+<h3>Houdiniの習得にどの程度の時間がかかりますか？</h3>
+<p>Houdiniを上手く使いこなすには、最低でも数ヶ月は時間を要します。しかし、基本的な操作を学ぶのは比較的早くできるでしょう。</p>
+<h3>個人でVFX制作をする場合、必要なスキルは何ですか？</h3>
+<p>基本的な3Dグラフィックスの知識と、Houdiniの操作方法が主な必要なスキルとなります。</p>
+<h2>まとめ</h2>
+<p>この記事では、初心者でも簡単に始められるHoudiniを使ったVFX制作について紹介しました。Houdiniはその高い柔軟性から多くのプロフェッショナルに支持されており、今後も進化を続ける予定です。ぜひ、Houdiniを使って自身の想像力を形にしてみてください。</p>
+<p>Houdiniを使うことで、今まで以上に豊かなVFX作品を作成できるようになります。これからさらに詳しく学んでいきましょう！</p>
+<h2>追補</h2>
+<p>上記内容をより深く理解するために、実践を繰り返すことが重要です。</p>
+  </main>
+
+  <footer>
+    <a class="back" href="../index.html">記事一覧へ戻る</a>
+  </footer>
+</body>
+</html>

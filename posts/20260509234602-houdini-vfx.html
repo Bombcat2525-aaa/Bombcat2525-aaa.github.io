@@ -1,0 +1,71 @@
+<!--TITLE:Houdiniで始めるVFX入門-->
+<!--DATE:2026-05-09-->
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Houdiniで始めるVFX入門 | AI自動ブログ</title>
+  <meta name="description" content="AIで記事を自動生成してGitHub Pagesに公開するブログ" />
+  <meta name="robots" content="index,follow" />
+  <style>
+    body { font-family: "Yu Gothic UI", "Meiryo", sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.9; color:#222; }
+    h1, h2, h3 { line-height: 1.4; }
+    .meta { color: #666; font-size: 0.95rem; margin-bottom: 1rem; }
+    a { color: #0b57d0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { margin-top: 2rem; display: inline-block; }
+  </style>
+</head>
+<body>
+  <header>
+    <p><a href="../index.html">← トップへ戻る</a></p>
+    <h1>Houdiniで始めるVFX入門</h1>
+    <p class="meta">公開日: 2026-05-09</p>
+  </header>
+
+  <main>
+    <h1>Houdiniで始めるVFX入門</h1>
+<p>こんにちは、VFX（視覚効果）について興味がある方も、初めてHoudiniを使用してみたいと思っている方も、この記事を通じて初心者でもわかりやすくVFXの世界を一緒に探ってみましょう。</p>
+<h2>VFXとは何か？</h2>
+<p>まず最初に、VFXとは何かをおさらいします。VFXは「視覚効果」の略で、映像や動画の中で手描きやコンピューターグラフィックス（CG）などの技術を使用して作られる効果を指します。例えば、映画の天体ショー、ドラマの特殊な効果など、実際には存在しない要素も含めることができます。</p>
+<h2>VFX制作プロセスとHoudini</h2>
+<p>VFX制作は複雑で多様なステップから成り立っていますが、Houdiniはその中の一つである「シミュレーション」や「ノードベースのワークフロー」を強力にサポートするツールです。Houdiniはアートディレクターもエンジニアも使いやすいように設計されています。</p>
+<h3>Houdiniの特徴</h3>
+<ul>
+<li>**ノードベース**: タスクを小さな単位（ノード）で分割し、それぞれを接続することでパネルを構築できます。</li>
+<li>**シミュレーション能力**: 風、水、火などの自然現象を高度にリアルな形で表現します。</li>
+<li>**カスタマイズ性**: 自分のアイデアを実現するために、Houdiniはプログラミング言語を使ってカスタムコンソールを作成することも可能です。</li>
+</ul>
+<h2>Houdini入門</h2>
+<h3>1. Houdiniのインストールと環境設定</h3>
+<p>まず初めに、自分のパソコンにHoudiniをインストールします。公式サイトから最新バージョンをダウンロードし、必要に応じてライセンスキーを入れます。</p>
+<h3>2. ファイルの開き方</h3>
+<p>インストールが完了したら、Houdiniを開きます。メニューにある「File」→「New Session」で新しいワークスペースを作成します。ここでプロジェクトファイルを保存していきます。</p>
+<h3>3. ベーシックノード操作</h3>
+<p>Houdiniはノードベースであるため、効果を生成するにはまずノードを選択し、必要な機能を実現するための他のノードと接続します。例えば、「Noise」ノードを「Render View」に接続することで、乱数シグナルを作成することができます。</p>
+<h3>4. 基本的なシミュレーション</h3>
+<p>Houdiniは強力なシミュレーションツールです。例えば、流体シミュレーションを行うには「Flow»Dop」ノードを使用します。「Particles」から開始して、粒子を生成し、これらの粒子がどのように動くかを制御することで、スモークや火花などを作ることができます。</p>
+<h2>実践的な例</h2>
+<h3>例1：基本的なノイズパターンの作成</h3>
+<p>Houdiniで最初に作るものは「ノイズ」です。ノイズは高度なシミュレーションや効果の基礎となります。以下を参考にしてみましょう。</p>
+<p>1. 「Noise»2D»Standard Noise」ノードを選択します。</p>
+<p>2. このノードと「Render View」ノードを接続します。</p>
+<p>3. ノードパネルで設定を行い、視覚化して確認します。</p>
+<h3>例2：粒子シミュレーション</h3>
+<p>次に、粒子シミュレーションを試してみましょう。これもまたHoudiniの強みです。</p>
+<p>1. 「Particles»Create»Point」ノードを選択します。</p>
+<p>2. このノードと「Render View」ノードを接続します。</p>
+<p>3. ノードパネルで粒子の生成、動く方法などを設定します。</p>
+<h2>まとめ</h2>
+<p>Houdiniは初心者でも取り組みやすいツールですが、効果を作成するためには時間と練習が必要です。上記の例や自身のアイデアを基に試行錯誤しながら、少しずつVFX制作の技術を身につけていくことが大切です。</p>
+<p>Houdiniで視覚効果制作の世界を開拓し、自分だけのクリエイティブなプロジェクトを生み出しましょう。</p>
+<h2>追補</h2>
+<p>上記内容をより深く理解するために、実践を繰り返すことが重要です。</p>
+  </main>
+
+  <footer>
+    <a class="back" href="../index.html">記事一覧へ戻る</a>
+  </footer>
+</body>
+</html>
