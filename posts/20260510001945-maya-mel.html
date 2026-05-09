@@ -1,0 +1,75 @@
+<!--TITLE:Mayaで始めるMEL入門-->
+<!--DATE:2026-05-10-->
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mayaで始めるMEL入門 | 知識ナビ</title>
+  <meta name="description" content="生活や仕事に役立つ情報を、わかりやすく整理してお届けします。" />
+  <meta name="robots" content="index,follow" />
+  <style>
+    body { font-family: "Yu Gothic UI", "Meiryo", sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.9; color:#222; }
+    h1, h2, h3 { line-height: 1.4; }
+    .meta { color: #666; font-size: 0.95rem; margin-bottom: 1rem; }
+    a { color: #0b57d0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { margin-top: 2rem; display: inline-block; }
+  </style>
+</head>
+<body>
+  <header>
+    <p><a href="../index.html">← トップへ戻る</a></p>
+    <h1>Mayaで始めるMEL入門</h1>
+    <p class="meta">公開日: 2026-05-10</p>
+  </header>
+
+  <main>
+    <h1>Mayaで始めるMEL入門</h1>
+<p>Mayaを利用する中で、プログラムの使い方を学びたいと考えている方も少なくないでしょう。特にMEL（Modeling and Animation Language）は、Mayaでのオブジェクト操作や自動化に活用できる強力なツールです。しかし、「MELって何から始めたらいいのかわからない」という方も多いかもしれません。</p>
+<h2>MELとは何か</h2>
+<p>MELは、Autodesk Mayaが提供するスクリプト言語の一つで、Maya内でのオブジェクト操作や自動化作業を支援します。初学者にとっては難しげに見えますが、基本的な命令を理解すれば、効率的な作業を行うことができます。</p>
+<h2>MEL入門までの道のり</h2>
+<h3>1. Mayaのバージョン確認</h3>
+<p>MELは異なるMayaのバージョンで若干異なる場合がありますので、最初に利用しているMayaのバージョンを確認しましょう。Help &gt; About Mayaから確認できます。</p>
+<h3>2. 簡単な命令を覚える</h3>
+<p>まずは基本的な命令から学びましょう。例えば、`print` コマンドを使ってメッセージを表示させることができます。</p>
+<p>```mel</p>
+<p>print(&quot;こんにちは！MEL入門の第一歩です！&quot;);</p>
+<p>```</p>
+<p>上記のコードをMayaのScript Editorに書き、Runボタンで実行すると「こんにちは！MEL入門の第一歩です！」というメッセージが表示されます。</p>
+<h3>3. ファイル操作の命令</h3>
+<p>ファイルの読み込みや保存も重要な機能の一つです。`file` コマンドを使うと簡単に実現できます。</p>
+<p>```mel</p>
+<p>file -save -options &quot;v=0;&quot; -pr -typ &quot;Maya ASCII&quot; -es;</p>
+<p>```</p>
+<p>このコードはMaya ASCII形式で現在作業中のファイルを保存します。</p>
+<h3>4. ループや条件分岐を使用する</h3>
+<p>MELでは、ループや条件分岐も利用できます。例えば、`for` 文を使って繰り返し処理を行うことができます。</p>
+<p>```mel</p>
+<p>for ($i = 1; $i &lt;= 5; $i++) {</p>
+<p>print(&quot;現在の値: &quot; + $i);</p>
+<p>}</p>
+<p>```</p>
+<p>このコードは、1から5までの数を順番に出力します。</p>
+<h3>5. オブジェクト操作の命令</h3>
+<p>Maya内でオブジェクトを操作するための命令もあります。`select` コマンドを使ってオブジェクトを選択し、`move` コマンドを使って移動させることができます。</p>
+<p>```mel</p>
+<p>select -r sphere1;</p>
+<p>move 2 3 4;</p>
+<p>```</p>
+<p>上記のコードは、名前が `sphere1` の球体を選択して、(2, 3, 4) の座標に移動します。</p>
+<h2>練習と実践を重ねる</h2>
+<p>MELの学習は、実際に手を動かすことでしか深みはありません。まずは簡単なスクリプトから始めてみてください。例えば、`for` 文を使って複数のオブジェクトを作成し、それを一括で移動させるようなスクリプトなどです。</p>
+<h2>まとめ</h2>
+<p>MELはMayaでの作業効率を大幅に向上させる強力なツールですが、初めは難しげかもしれません。しかし、基本的な命令を理解することで少しずつ使いこなすことができます。まずは簡単なプログラムから始めて、実際の作業で活用してみてください。</p>
+<p>MEL学習には時間と練習が必要ですが、日々の制作プロセスを効率化する上で大きな武器となることでしょう。自分だけのMaya環境を作り上げる一歩として、MELに挑戦してみてはいかがでしょうか。</p>
+<h2>追補</h2>
+<p>上記内容をより深く理解するために、実践を繰り返すことが重要です。</p>
+  </main>
+
+  <footer>
+    <a class="back" href="../index.html">記事一覧へ戻る</a>
+  </footer>
+</body>
+</html>
