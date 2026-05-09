@@ -1,0 +1,10 @@
+# AI自動ブログ生成システム - Python依存ライブラリ
+#
+# インストール方法:
+#   pip install -r requirements.txt
+#
+# Python バージョン要件: Python 3.8以上
+
+# HTTPリクエスト（Ollama API通信に使用）
+# ドキュメント: https://docs.python-requests.org/
+requests>=2.28.0

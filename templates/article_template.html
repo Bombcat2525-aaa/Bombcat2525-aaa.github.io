@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <!-- ===== 文字コード・ビューポート設定 ===== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ===== SEOメタタグ ===== -->
+  <title>{{TITLE}} | {{SITE_TITLE}}</title>
+  <meta name="description" content="{{DESCRIPTION}}">
+  <meta name="author" content="{{SITE_TITLE}}">
+
+  <!-- ===== OGP (Open Graph Protocol) - SNSシェア用 ===== -->
+  <meta property="og:title" content="{{TITLE}}">
+  <meta property="og:description" content="{{DESCRIPTION}}">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="{{ARTICLE_URL}}">
+  <meta property="og:site_name" content="{{SITE_TITLE}}">
+  <meta property="og:locale" content="ja_JP">
+
+  <!-- ===== Twitter Card ===== -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{TITLE}}">
+  <meta name="twitter:description" content="{{DESCRIPTION}}">
+
+  <!-- ===== 正規URL ===== -->
+  <link rel="canonical" href="{{ARTICLE_URL}}">
+
+  <!-- ===== スタイルシート ===== -->
+  <style>
+    /* リセットとベーススタイル */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* フォント設定 - 日本語に読みやすいフォントスタック */
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo",
+                   "Yu Gothic", sans-serif;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+
+    /* ===== レイアウト ===== */
+    .wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ===== ヘッダー ===== */
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 16px 0;
+      margin-bottom: 40px;
+    }
+
+    header .wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header .site-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+    }
+
+    header nav a {
+      color: #ecf0f1;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    header nav a:hover {
+      color: #3498db;
+    }
+
+    /* ===== メインコンテンツ ===== */
+    main {
+      padding-bottom: 60px;
+    }
+
+    /* ===== 記事ヘッダー ===== */
+    .article-header {
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .article-date {
+      font-size: 0.875rem;
+      color: #666;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    /* ===== 見出しスタイル ===== */
+    /* h1: 記事タイトル */
+    .article-body h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      line-height: 1.3;
+      color: #1a1a2e;
+      margin: 40px 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #3498db;
+    }
+
+    /* h2: 主要セクション */
+    .article-body h2 {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #2c3e50;
+      margin: 36px 0 16px;
+      padding-left: 14px;
+      border-left: 4px solid #3498db;
+    }
+
+    /* h3: サブセクション */
+    .article-body h3 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #34495e;
+      margin: 28px 0 12px;
+      padding-bottom: 4px;
+      border-bottom: 1px dashed #ccc;
+    }
+
+    /* h4: 詳細見出し */
+    .article-body h4 {
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: #555;
+      margin: 20px 0 10px;
+    }
+
+    /* ===== 本文テキスト ===== */
+    .article-body p {
+      margin: 16px 0;
+      text-align: justify; /* 両端揃え（日本語に自然） */
+    }
+
+    /* ===== リスト ===== */
+    .article-body ul,
+    .article-body ol {
+      margin: 16px 0 16px 24px;
+    }
+
+    .article-body li {
+      margin: 8px 0;
+    }
+
+    /* ===== コードブロック ===== */
+    .article-body pre {
+      background-color: #1e1e2e;
+      color: #cdd6f4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 24px 0;
+      font-family: "Cascadia Code", "Fira Code", "Consolas", monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* ===== インラインコード ===== */
+    .article-body code {
+      background-color: #f0f0f5;
+      color: #c0392b;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: "Cascadia Code", "Fira Code", "Consolas", monospace;
+      font-size: 0.9em;
+    }
+
+    /* preの中のcodeはスタイルをリセット */
+    .article-body pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+      font-size: inherit;
+    }
+
+    /* ===== 引用 ===== */
+    .article-body blockquote {
+      border-left: 4px solid #3498db;
+      background-color: #ebf5fb;
+      padding: 16px 20px;
+      margin: 24px 0;
+      border-radius: 0 8px 8px 0;
+      color: #555;
+    }
+
+    /* ===== 水平線 ===== */
+    .article-body hr {
+      border: none;
+      border-top: 2px solid #e0e0e0;
+      margin: 40px 0;
+    }
+
+    /* ===== 強調・斜体 ===== */
+    .article-body strong {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .article-body em {
+      font-style: italic;
+      color: #555;
+    }
+
+    /* ===== リンク ===== */
+    .article-body a {
+      color: #3498db;
+      text-decoration: none;
+      border-bottom: 1px solid #a9d4f5;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .article-body a:hover {
+      color: #1a5276;
+      border-color: #1a5276;
+    }
+
+    /* ===== ナビゲーション（記事下部）===== */
+    .article-nav {
+      margin-top: 50px;
+      padding-top: 24px;
+      border-top: 1px solid #e0e0e0;
+      text-align: center;
+    }
+
+    .article-nav a {
+      display: inline-block;
+      padding: 10px 24px;
+      background-color: #3498db;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      transition: background-color 0.2s;
+    }
+
+    .article-nav a:hover {
+      background-color: #1a5276;
+    }
+
+    /* ===== フッター ===== */
+    footer {
+      background-color: #2c3e50;
+      color: #bdc3c7;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.875rem;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    /* ===== レスポンシブ対応 ===== */
+    @media (max-width: 600px) {
+      body {
+        font-size: 15px;
+      }
+
+      .article-body h1 {
+        font-size: 1.6rem;
+      }
+
+      .article-body h2 {
+        font-size: 1.3rem;
+      }
+
+      .article-body h3 {
+        font-size: 1.1rem;
+      }
+
+      .article-body pre {
+        font-size: 0.85rem;
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== サイトヘッダー ===== -->
+  <header>
+    <div class="wrapper">
+      <a href="../index.html" class="site-title">{{SITE_TITLE}}</a>
+      <nav>
+        <a href="../index.html">ホーム</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== メインコンテンツ ===== -->
+  <main>
+    <div class="wrapper">
+
+      <!-- 記事ヘッダー（タイトルと日付） -->
+      <div class="article-header">
+        <span class="article-date">
+          <time datetime="{{DATE}}">公開日: {{DATE}}</time>
+        </span>
+      </div>
+
+      <!-- 記事本文 -->
+      <article class="article-body">
+        {{BODY}}
+      </article>
+
+      <!-- 記事下部ナビゲーション -->
+      <nav class="article-nav">
+        <a href="../index.html">← 記事一覧へ戻る</a>
+      </nav>
+
+    </div>
+  </main>
+
+  <!-- ===== フッター ===== -->
+  <footer>
+    <div class="wrapper">
+      <p>&copy; 2024 {{SITE_TITLE}} - AI自動生成ブログ</p>
+      <p style="margin-top: 8px; font-size: 0.8rem;">
+        このブログはOllama AIによって自動生成されています。
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
