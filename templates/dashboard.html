@@ -2,20 +2,24 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI自動ブログ管理パネル</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <header class="header">
+  <header class="topbar">
     <h1>AI自動ブログ管理パネル</h1>
-    <p>http://localhost:5000</p>
+    <div class="top-buttons">
+      <a class="btn link" href="{{ site_url }}" target="_blank" rel="noopener">公開サイトを開く</a>
+      <a class="btn link" href="{{ repo_url }}" target="_blank" rel="noopener">GitHubリポジトリを開く</a>
+    </div>
   </header>
 
   <main class="container">
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         <section class="card">
+          <h2>エラー / お知らせ</h2>
           {% for category, message in messages %}
             <div class="alert {{ category }}">{{ message }}</div>
           {% endfor %}
@@ -25,77 +29,118 @@
 
     <section class="card">
       <h2>自動投稿設定</h2>
-      <form method="post" action="{{ url_for('config_save') }}">
+      <form method="post" action="{{ url_for('save_settings') }}" class="grid">
         <label class="row">
           <span>自動投稿ON/OFF</span>
           <input type="checkbox" name="auto_post_enabled" {% if config.auto_post_enabled %}checked{% endif %}>
         </label>
 
         <label>投稿頻度</label>
-        <select name="post_interval">
-          {% for i in interval_options %}
-            <option value="{{ i }}" {% if config.post_interval == i %}selected{% endif %}>{{ i }}</option>
+        <select name="post_frequency">
+          {% for v, label in interval_options %}
+            <option value="{{ v }}" {% if config.post_frequency == v %}selected{% endif %}>{{ label }}</option>
           {% endfor %}
         </select>
 
+        <label>記事生成モード</label>
+        <div class="radio-group">
+          <label><input type="radio" name="article_source_mode" value="auto_keyword" {% if config.article_source_mode == 'auto_keyword' %}checked{% endif %}> A. 自動更新キーワード</label>
+          <label><input type="radio" name="article_source_mode" value="manual_title" {% if config.article_source_mode == 'manual_title' %}checked{% endif %}> B. 入力タイトル</label>
+        </div>
+
+        <label>手動タイトル</label>
+        <input type="text" name="manual_title" value="{{ config.manual_title or '' }}" placeholder="手動モード時に使用">
+
         <p class="warn">{{ config.warning_message }}</p>
-        <button class="btn primary" type="submit">設定を保存</button>
+        <p class="muted">最終キーワード更新: {{ config.last_keyword_update_at or "未更新" }}</p>
+        <button type="submit" class="btn primary">設定を保存</button>
       </form>
     </section>
 
     <section class="card">
-      <h2>手動投稿</h2>
-      <form method="post" action="{{ url_for('generate_now') }}">
-        <button class="btn danger" type="submit">今すぐ1記事生成</button>
+      <h2>今すぐ記事生成</h2>
+      <form method="post" action="{{ url_for('generate_now') }}" class="grid">
+        <div class="radio-group">
+          <label><input type="radio" name="article_source_mode" value="auto_keyword" checked> A. 自動キーワード</label>
+          <label><input type="radio" name="article_source_mode" value="manual_title"> B. 手動タイトル</label>
+        </div>
+        <input type="text" name="manual_title" placeholder="手動タイトル（B選択時）">
+        <button class="btn success" type="submit">今すぐ1記事生成</button>
       </form>
-      <p class="muted">最終実行: {{ config.last_run_at or "未実行" }}</p>
+      <form method="post" action="{{ url_for('update_keywords') }}">
+        <button class="btn" type="submit">キーワード更新</button>
+      </form>
+      <p class="muted">最終生成: {{ config.last_run_at or "未実行" }}</p>
     </section>
 
     <section class="card">
-      <h2>関心ワード</h2>
-      <form class="inline" method="post" action="{{ url_for('trending_add') }}">
-        <input type="text" name="word" placeholder="ワード" required>
-        <input type="number" name="score" min="1" max="100" value="50" required>
-        <button class="btn" type="submit">追加</button>
-      </form>
+      <h2>投稿済み記事一覧</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>投稿日</th><th>タイトル</th><th>ファイル名</th><th>URL</th><th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in posts %}
+            <tr>
+              <td>{{ p.date }}</td>
+              <td>{{ p.title }}</td>
+              <td>{{ p.filename }}</td>
+              <td><a href="{{ p.url }}" target="_blank">記事URL</a></td>
+              <td class="ops">
+                <a class="btn link" href="{{ p.url }}" target="_blank">記事を開く</a>
+                <form method="post" action="{{ url_for('delete_post') }}" onsubmit="return confirm('この記事を削除しますか？（deleted_postsへ移動）');">
+                  <input type="hidden" name="filename" value="{{ p.filename }}">
+                  <button class="btn danger" type="submit">削除</button>
+                </form>
+              </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5">投稿記事はありません</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>最近削除した記事（最大5件）</h2>
       <ul class="list">
-        {% for w in trending_words %}
+        {% for d in deleted_posts %}
           <li>
-            <span>{{ w.word }} (score: {{ w.score }})</span>
-            <form method="post" action="{{ url_for('trending_delete') }}">
-              <input type="hidden" name="index" value="{{ loop.index0 }}">
-              <button class="btn small" type="submit">削除</button>
+            <div>
+              <strong>{{ d.title }}</strong><br>
+              <span class="muted">{{ d.filename }} / {{ d.deleted_at }}</span>
+            </div>
+            <form method="post" action="{{ url_for('restore_post') }}">
+              <input type="hidden" name="filename" value="{{ d.filename }}">
+              <button type="submit" class="btn primary">復元</button>
             </form>
           </li>
+        {% else %}
+          <li>削除履歴はありません</li>
         {% endfor %}
       </ul>
     </section>
 
     <section class="card">
-      <h2>アフィリエイト商品</h2>
-      <form method="post" action="{{ url_for('affiliate_add') }}" class="grid">
-        <input type="text" name="name" placeholder="商品名" required>
-        <input type="url" name="affiliate_url" placeholder="アフィリエイトURL" required>
-        <input type="text" name="category" placeholder="カテゴリ">
-        <input type="text" name="related_keywords" placeholder="関連キーワード(カンマ区切り)">
-        <input type="text" name="asp_name" placeholder="承認済みASP名">
-        <textarea name="memo" placeholder="メモ"></textarea>
-        <label class="row">
-          <span>承認済み</span>
-          <input type="checkbox" name="approved">
-        </label>
-        <button class="btn" type="submit">商品を追加</button>
-      </form>
+      <h2>関心ワード</h2>
+      <ul class="list">
+        {% for w in trending %}
+          <li><span>{{ w.word }}</span><span>score: {{ w.score }}</span></li>
+        {% endfor %}
+      </ul>
+    </section>
 
+    <section class="card">
+      <h2>アフィリエイト商品（承認状況確認）</h2>
       <ul class="list">
         {% for p in affiliate_products %}
-          <li>
-            <span>{{ p.name }} / approved={{ p.approved }}</span>
-            <form method="post" action="{{ url_for('affiliate_delete') }}">
-              <input type="hidden" name="index" value="{{ loop.index0 }}">
-              <button class="btn small" type="submit">削除</button>
-            </form>
-          </li>
+          <li><span>{{ p.name }} / {{ p.category }} / approved={{ p.approved }}</span></li>
+        {% else %}
+          <li>商品がありません</li>
         {% endfor %}
       </ul>
     </section>
@@ -105,12 +150,12 @@
       <div class="logs">
         {% for l in logs %}
           <article class="log">
-            <p><strong>{{ l.executed_at }}</strong> / {{ l.status }}</p>
+            <p><strong>{{ l.executed_at }}</strong> - {{ l.status }}</p>
             <p>{{ l.title }}</p>
             {% if l.error %}<pre>{{ l.error }}</pre>{% endif %}
           </article>
         {% else %}
-          <p class="muted">まだログはありません。</p>
+          <p>ログなし</p>
         {% endfor %}
       </div>
     </section>
