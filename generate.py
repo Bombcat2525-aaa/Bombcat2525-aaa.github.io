@@ -31,7 +31,7 @@ from jinja2 import Environment, FileSystemLoader
 # 設定（必要に応じて変更）
 # =========================
 OLLAMA_API_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "qwen2.5:7b"  # 日本語が比較的得意なモデル例
+OLLAMA_MODEL = "trusted-writer"  # 日本語が比較的得意なモデル例
 SITE_TITLE = "知識ナビ"
 SITE_DESCRIPTION = "生活や仕事に役立つ情報を、わかりやすく整理してお届けします。"
 
