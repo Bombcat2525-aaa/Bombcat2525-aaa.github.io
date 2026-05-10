@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 記事自動生成スクリプト (Pythonのみ)
 - Ollama APIで日本語記事を生成
@@ -13,7 +13,9 @@
 
 事前準備:
     1) Ollamaをインストールして起動
-    2) モデルをpull (例: ollama pull qwen2.5:7b)
+    2) ベースモデルをpullしてカスタムモデルを作成
+       例: ollama pull qwen3:8b
+           ollama create trusted-writer -f Modelfile
     3) このプロジェクトをgit管理下に置く
 """
 
@@ -31,7 +33,8 @@ from jinja2 import Environment, FileSystemLoader
 # 設定（必要に応じて変更）
 # =========================
 OLLAMA_API_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "trusted-writer"  # 日本語が比較的得意なモデル例
+OLLAMA_MODEL = "trusted-writer"
+MODEL = OLLAMA_MODEL  # 互換用
 SITE_TITLE = "知識ナビ"
 SITE_DESCRIPTION = "生活や仕事に役立つ情報を、わかりやすく整理してお届けします。"
 
@@ -49,7 +52,7 @@ def slugify(text: str) -> str:
     """
     タイトルからURL用スラッグを生成する関数。
     日本語の場合は完全なローマ字変換が難しいため、
-    日時ベースにして安全なファイル名���返す。
+    日時ベースにして安全なファイル名を返す。
     """
     ascii_part = re.sub(r"[^a-zA-Z0-9]+", "-", text).strip("-").lower()
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
@@ -61,11 +64,6 @@ def slugify(text: str) -> str:
 def call_ollama_generate_article(title: str, keyword: str = "") -> str:
     """
     Ollama APIを呼び出して、日本語記事本文（Markdown）を生成する。
-    記事条件:
-      - 2000文字以上
-      - h1/h2/h3構造
-      - 自然な日本語
-      - 最後にまとめ
     """
     prompt = f"""
 あなたは日本語の編集ライターです。以下の条件を必ず守って、記事をMarkdown形式で出力してください。
@@ -110,16 +108,11 @@ Markdown本文のみを返してください。余計な説明は不要です。
     except Exception as e:
         raise RuntimeError(
             f"Ollama APIの呼び出しに失敗しました: {e}\n"
-            "Ollamaが起動しているか、モデル名が正しいか確認してください。"
+            "Ollamaが起動しているか、モデル名（trusted-writer）が正しいか確認してください。"
         )
 
 
 def markdown_to_html_simple(md_text: str) -> str:
-    """
-    MarkdownをシンプルにHTMLへ変換する関数。
-    依存を少なくするため、最小限の変換を実装。
-    （h1/h2/h3, 段落, 箇条書き）
-    """
     lines = md_text.splitlines()
     html_lines = []
     in_ul = False
@@ -171,10 +164,6 @@ def markdown_to_html_simple(md_text: str) -> str:
 
 
 def load_posts_metadata():
-    """
-    postsフォルダ内のHTML記事を走査し、メタ情報を抽出して一覧用に返す。
-    ここではファイル先頭の簡易メタコメントからタイトル・日付を読む。
-    """
     posts = []
     for p in sorted(POSTS_DIR.glob("*.html"), reverse=True):
         text = p.read_text(encoding="utf-8", errors="ignore")
@@ -188,7 +177,6 @@ def load_posts_metadata():
 
 
 def render_article_html(title: str, date_str: str, article_html: str, slug: str) -> str:
-    """記事テンプレートを使って最終HTMLを生成する。"""
     template = env.get_template("article_template.html")
     return template.render(
         site_title=SITE_TITLE,
@@ -201,7 +189,6 @@ def render_article_html(title: str, date_str: str, article_html: str, slug: str)
 
 
 def render_index_html(posts):
-    """indexテンプレートを使ってトップページを生成する。"""
     template = env.get_template("index_template.html")
     return template.render(
         site_title=SITE_TITLE,
@@ -211,10 +198,6 @@ def render_index_html(posts):
 
 
 def git_auto_push(commit_message: str):
-    """
-    Gitに自動コミット＆プッシュする関数。
-    失敗しても記事生成自体は成功扱いにしたいので、例外を握ってメッセージ表示。
-    """
     try:
         subprocess.run(["git", "add", "."], check=True)
         commit_result = subprocess.run(
@@ -222,6 +205,8 @@ def git_auto_push(commit_message: str):
             check=False,
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
         )
         subprocess.run(["git", "push"], check=True)
 
@@ -235,14 +220,6 @@ def git_auto_push(commit_message: str):
 
 
 def main():
-    """
-    メイン処理:
-      1) 引数取得
-      2) 記事生成
-      3) HTML変換してposts保存
-      4) index.html再生成
-      5) git push
-    """
     parser = argparse.ArgumentParser(description="記事自動生成")
     parser.add_argument("--title", required=True, help="記事タイトル")
     parser.add_argument("--keyword", default="", help="補助キーワード")

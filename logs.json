@@ -1,5 +1,200 @@
 [
   {
+    "executed_at": "2026-05-10T17:39:13",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "記事生成スクリプトが失敗しました。\n終了コード: 1\nSTDERR:\nFile \"C:\\Users\\ShibataSub\\Bombcat2525-aaa.github.io\\generate.py\", line 36\n    SITE_DESCRIPTION = \"生活めE��事に役立つ惁E��を、わかりめE��く整琁E��てお届けします、E\n                       ^\nSyntaxError: unterminated string literal (detected at line 36)\n\nSTDOUT:\n(なし)"
+  },
+  {
+    "executed_at": "2026-05-10T17:34:02",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "記事生成スクリプトが失敗しました。\n終了コード: 1\nSTDERR:\nFile \"C:\\Users\\ShibataSub\\Bombcat2525-aaa.github.io\\generate.py\", line 35\n    SITE_TITLE = \"知識ナチE\n                 ^\nSyntaxError: unterminated string literal (detected at line 35)\n\nSTDOUT:\n(なし)"
+  },
+  {
+    "executed_at": "2026-05-10T17:11:32",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "記事生成スクリプトが失敗しました。\n終了コード: 1\nSTDERR:\nFile \"C:\\Users\\ShibataSub\\Bombcat2525-aaa.github.io\\generate.py\", line 35\n    SITE_TITLE = \"知識ナチE\n                 ^\nSyntaxError: unterminated string literal (detected at line 35)\n\nSTDOUT:\n(なし)"
+  },
+  {
+    "executed_at": "2026-05-10T17:11:18",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "記事生成スクリプトが失敗しました。\n終了コード: 1\nSTDERR:\nFile \"C:\\Users\\ShibataSub\\Bombcat2525-aaa.github.io\\generate.py\", line 35\n    SITE_TITLE = \"知識ナチE\n                 ^\nSyntaxError: unterminated string literal (detected at line 35)\n\nSTDOUT:\n(なし)"
+  },
+  {
+    "executed_at": "2026-05-10T17:09:35",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "記事生成スクリプトが失敗しました。\n終了コード: 1\nSTDERR:\nFile \"C:\\Users\\ShibataSub\\Bombcat2525-aaa.github.io\\generate.py\", line 35\n    SITE_TITLE = \"知識ナチE\n                 ^\nSyntaxError: unterminated string literal (detected at line 35)\n\nSTDOUT:\n(なし)"
+  },
+  {
+    "executed_at": "2026-05-10T17:03:38",
+    "title": "CGlarning",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "記事生成スクリプトが失敗しました。\n終了コード: 1\nSTDERR:\nFile \"C:\\Users\\ShibataSub\\Bombcat2525-aaa.github.io\\generate.py\", line 35\n    SITE_TITLE = \"知識ナチE\n                 ^\nSyntaxError: unterminated string literal (detected at line 35)\n\nSTDOUT:\n(なし)"
+  },
+  {
+    "executed_at": "2026-05-10T17:03:26",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "記事生成スクリプトが失敗しました。\n終了コード: 1\nSTDERR:\nFile \"C:\\Users\\ShibataSub\\Bombcat2525-aaa.github.io\\generate.py\", line 35\n    SITE_TITLE = \"知識ナチE\n                 ^\nSyntaxError: unterminated string literal (detected at line 35)\n\nSTDOUT:\n(なし)"
+  },
+  {
+    "executed_at": "2026-05-10T17:01:25",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "記事生成スクリプトが失敗しました。\n終了コード: 1\nSTDERR:\nFile \"C:\\Users\\ShibataSub\\Bombcat2525-aaa.github.io\\generate.py\", line 35\n    SITE_TITLE = \"知識ナチE\n                 ^\nSyntaxError: unterminated string literal (detected at line 35)\n\nSTDOUT:\n(なし)"
+  },
+  {
+    "executed_at": "2026-05-10T16:45:25",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "Command '['python', 'generate.py', '--title', 'Houdiniを仕事と生活に活かす実践ガイド', '--keyword', 'Houdini']' returned non-zero exit status 1."
+  },
+  {
+    "executed_at": "2026-05-10T16:38:04",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "Command '['python', 'generate.py', '--title', 'Houdiniを仕事と生活に活かす実践ガイド', '--keyword', 'Houdini']' returned non-zero exit status 1."
+  },
+  {
+    "executed_at": "2026-05-10T16:36:51",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "Command '['python', 'generate.py', '--title', 'Houdiniを仕事と生活に活かす実践ガイド', '--keyword', 'Houdini']' returned non-zero exit status 1."
+  },
+  {
+    "executed_at": "2026-05-10T16:32:54",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "Command '['python', 'generate.py', '--title', 'Houdiniを仕事と生活に活かす実践ガイド', '--keyword', 'Houdini']' returned non-zero exit status 1."
+  },
+  {
+    "executed_at": "2026-05-10T16:21:06",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "Command '['python', 'generate.py', '--title', 'Houdiniを仕事と生活に活かす実践ガイド', '--keyword', 'Houdini']' returned non-zero exit status 1."
+  },
+  {
+    "executed_at": "2026-05-10T16:19:10",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "Command '['python', 'generate.py', '--title', 'Houdiniを仕事と生活に活かす実践ガイド', '--keyword', 'Houdini']' returned non-zero exit status 1."
+  },
+  {
+    "executed_at": "2026-05-10T16:16:56",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "Command '['python', 'generate.py', '--title', 'Houdiniを仕事と生活に活かす実践ガイド', '--keyword', 'Houdini']' returned non-zero exit status 1."
+  },
+  {
+    "executed_at": "2026-05-10T16:16:33",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "Command '['python', 'generate.py', '--title', 'Houdiniを仕事と生活に活かす実践ガイド', '--keyword', 'Houdini']' returned non-zero exit status 1."
+  },
+  {
+    "executed_at": "2026-05-10T16:16:19",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "Command '['python', 'generate.py', '--title', 'CGを学ぶなら！専門学校おすすめランキング', '--keyword', 'CGを学ぶなら！専門学校おすすめランキング']' returned non-zero exit status 1."
+  },
+  {
+    "executed_at": "2026-05-10T16:15:53",
+    "title": "CGを学ぶなら！専門学校おすすめランキング",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "Command '['python', 'generate.py', '--title', 'CGを学ぶなら！専門学校おすすめランキング', '--keyword', 'CGを学ぶなら！専門学校おすすめランキング']' returned non-zero exit status 1."
+  },
+  {
+    "executed_at": "2026-05-10T15:59:20",
+    "title": "",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "unterminated string literal (detected at line 35) (generate.py, line 35)"
+  },
+  {
+    "executed_at": "2026-05-10T15:59:13",
+    "title": "",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "unterminated string literal (detected at line 35) (generate.py, line 35)"
+  },
+  {
+    "executed_at": "2026-05-10T15:59:05",
+    "title": "",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "unterminated string literal (detected at line 35) (generate.py, line 35)"
+  },
+  {
+    "executed_at": "2026-05-10T15:58:58",
+    "title": "",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "unterminated string literal (detected at line 35) (generate.py, line 35)"
+  },
+  {
+    "executed_at": "2026-05-10T15:57:35",
+    "title": "",
+    "used_keywords": [],
+    "used_product": "",
+    "status": "failed",
+    "error": "unterminated string literal (detected at line 35) (generate.py, line 35)"
+  },
+  {
+    "executed_at": "2026-05-10T13:09:39",
+    "title": "Houdiniを日常で活かす入門ガイド",
+    "used_keywords": [
+      "Houdini"
+    ],
+    "used_product": "",
+    "status": "success",
+    "error": "",
+    "output": "[1/5] 記事を生成中...\n[2/5] MarkdownをHTMLへ変換中...\n[3/5] 記事ファイルを保存中...\n[OK] 保存: C:\\Users\\ShibataSub\\Bombcat2525-aaa.github.io\\posts\\20260510130856-houdini.html\n[4/5] index.htmlを更新中...\n[OK] 更新: C:\\Users\\ShibataSub\\Bombcat2525-aaa.github.io\\index.html\n[5/5] Gitへpush...\n[OK] Git push 完了\n\n完了しました。公開ページを確認してください。\n"
+  },
+  {
     "executed_at": "2026-05-10T12:39:25",
     "title": "生成AIを日常で活かす入門ガイド",
     "used_keywords": [
