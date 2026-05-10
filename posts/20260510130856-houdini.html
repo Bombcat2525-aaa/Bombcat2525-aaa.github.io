@@ -1,0 +1,99 @@
+<!--TITLE:Houdiniを日常で活かす入門ガイド-->
+<!--DATE:2026-05-10-->
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Houdiniを日常で活かす入門ガイド | 知識ナビ</title>
+  <meta name="description" content="生活や仕事に役立つ情報を、わかりやすく整理してお届けします。" />
+  <meta name="robots" content="index,follow" />
+  <style>
+    body { font-family: "Yu Gothic UI", "Meiryo", sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.9; color:#222; }
+    h1, h2, h3 { line-height: 1.4; }
+    .meta { color: #666; font-size: 0.95rem; margin-bottom: 1rem; }
+    a { color: #0b57d0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { margin-top: 2rem; display: inline-block; }
+  </style>
+</head>
+<body>
+  <header>
+    <p><a href="../index.html">← トップへ戻る</a></p>
+    <h1>Houdiniを日常で活かす入門ガイド</h1>
+    <p class="meta">公開日: 2026-05-10</p>
+  </header>
+
+  <main>
+    <h1>Houdiniを日常で活かす入門ガイド</h1>
+<p>Houdiniは、多くのクリエイターが利用している高度な3D制作ソフトウェアですが、日常生活でも役立つツールとして知られています。本ガイドでは初心者向けに、Houdiniを使ってみるための基本的な知識と具体的な使い方をご紹介します。</p>
+<h2>Houdiniとは</h2>
+<p>Houdiniは、VFXやゲーム開発など、3Dグラフィックス制作の分野で広く使用されるソフトウェアです。しかし、その機能が多岐にわたるため、一歩間違えると使いこなせないという声もあります。しかし、実はHoudiniを活用すれば、日常的な様々な課題にも対応できることがあります。</p>
+<h2>Houdiniで何ができる？</h2>
+<h3>デザインのアイデア出し</h3>
+<p>Houdiniを使って3Dモデルを作成することで、新たなデザインアイデアを具体化することができます。例えば、新しい家具や家電製品のコンセプトを3Dで視覚化し、実際にどのように使われるかを確認できます。</p>
+<p>```python</p>
+<h1>Houdiniスクリプト例：簡単な立方体の作成</h1>
+<p>primitive_cube = create_primitive(&quot;cube&quot;)</p>
+<p>```</p>
+<h3>レシピカードの作成</h3>
+<p>料理レシピのステップを3Dで表現することで、視覚的に理解しやすくなります。例えば、「卵を煎じてから野菜を入れる」という手順が動画のように流れることができるのです。</p>
+<p>```python</p>
+<h1>Houdiniスクリプト例：簡単なポーションの作成</h1>
+<p>add_egg()</p>
+<p>stir()</p>
+<p>add_vegetables()</p>
+<p>```</p>
+<h3>家庭用品の使い方</h3>
+<p>インテリアアイテムや家電製品の正しい使い方を説明する動画を作成することも可能です。3Dモデルとアニメーションを使って、製品の操作方法を視覚的に伝えることができます。</p>
+<p>```python</p>
+<h1>Houdiniスクリプト例：洗濯機の使用方法</h1>
+<p>turn_on()</p>
+<p>load_clothes()</p>
+<p>select_program()</p>
+<p>```</p>
+<h2>Houdiniで作る具体例</h2>
+<h3>1. デザインアイデアの3D化</h3>
+<p>まず、Houdiniを使って家具のデザインアイデアを具体的に視覚化します。</p>
+<p>```python</p>
+<h1>ステップ1: 棚板を作成</h1>
+<p>shelf_board = create_board(&quot;vertical&quot;)</p>
+<h1>ステップ2: サポート構造を作成</h1>
+<p>support_frame = create_rectangle(&quot;horizontal&quot;, 3, 0.5)</p>
+<h1>ステップ3: 複数の棚板を配置</h1>
+<p>add_three_shelves(shelf_board, support_frame)</p>
+<p>```</p>
+<h3>2. レシピカードの作成</h3>
+<p>次に、簡単な料理レシピをHoudiniで視覚化します。</p>
+<p>```python</p>
+<h1>ステップ1: 食材を加える</h1>
+<p>add_ingredients([&quot;onion&quot;, &quot;garlic&quot;, &quot;tomato&quot;])</p>
+<h1>スtep2: 野菜を切る</h1>
+<p>chop(&quot;onion&quot;)</p>
+<p>chop(&quot;garlic&quot;)</p>
+<p>chop(&quot;tomato&quot;)</p>
+<h1>ステップ3: 野菜を炒める</h1>
+<p>saute(2, &quot;medium&quot;)</p>
+<p>```</p>
+<h3>3. 家電製品の使い方</h3>
+<p>最後に、家電製品の操作方法をHoudiniで動画形式にしてみます。</p>
+<p>```python</p>
+<h1>ステップ1: 洗濯機を起動</h1>
+<p>turn_on洗衣机()</p>
+<p>load_clothes()</p>
+<h1>ステップ2: プログラムを選択</h1>
+<p>select_program(&quot;日常洗濯&quot;)</p>
+<p>```</p>
+<h2>結論</h2>
+<p>Houdiniは、その高度な機能性からクリエイターたちの間で人気がありますが、日常生活でも非常に便利なツールとして活用できます。デザインアイデアを具体化したり、レシピカードを作成したり、家電製品の使い方を説明する動画を作成することも可能です。初心者でも基本的な知識さえあれば、Houdiniを使って日常の様々な課題に取り組むことができるでしょう。</p>
+<h1>まとめ</h1>
+<p>Houdiniはクリエイティブな分野で活用されるソフトウェアですが、日常の様々な課題にも対応することができます。具体的な例やスクリプトを通じて、Houdiniを使いこなす方法を学んでいただきました。初心者でも取り組みやすいHoudiniを使って、日常生活をもっと豊かで楽しいものにしてみませんか？</p>
+<h2>追補</h2>
+<p>上記内容をより深く理解するために、実践を繰り返すことが重要です。</p>
+  </main>
+
+  <footer>
+    <a class="back" href="../index.html">記事一覧へ戻る</a>
+  </footer>
+</body>
+</html>

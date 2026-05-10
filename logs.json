@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "executed_at": "2026-05-10T12:39:25",
+    "title": "生成AIを日常で活かす入門ガイド",
+    "used_keywords": [
+      "生成AI"
+    ],
+    "used_product": "",
+    "status": "success",
+    "error": "",
+    "output": "[1/5] 記事を生成中...\n[2/5] MarkdownをHTMLへ変換中...\n[3/5] 記事ファイルを保存中...\n[OK] 保存: C:\\Users\\ShibataSub\\Bombcat2525-aaa.github.io\\posts\\20260510123841-ai.html\n[4/5] index.htmlを更新中...\n[OK] 更新: C:\\Users\\ShibataSub\\Bombcat2525-aaa.github.io\\index.html\n[5/5] Gitへpush...\n[OK] Git push 完了\n\n完了しました。公開ページを確認してください。\n"
+  }
+]
