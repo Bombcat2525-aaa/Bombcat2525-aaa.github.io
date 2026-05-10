@@ -202,8 +202,27 @@ def title_exists(title: str) -> bool:
 def run_generate(title: str, keyword: str):
     if title_exists(title):
         raise RuntimeError("同じタイトルの記事が既に存在します。")
+
     cmd = ["python", "generate.py", "--title", title, "--keyword", keyword]
-    subprocess.run(cmd, cwd=str(BASE_DIR), check=True, capture_output=True, text=True)
+    result = subprocess.run(
+        cmd,
+        cwd=str(BASE_DIR),
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
+
+    if result.returncode != 0:
+        stderr = (result.stderr or "").strip()
+        stdout = (result.stdout or "").strip()
+        raise RuntimeError(
+            "記事生成スクリプトが失敗しました。\n"
+            f"終了コード: {result.returncode}\n"
+            f"STDERR:\n{stderr if stderr else '(なし)'}\n\n"
+            f"STDOUT:\n{stdout if stdout else '(なし)'}"
+        )
 
 
 def update_keywords_from_rss():
