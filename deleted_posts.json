@@ -1,1 +1,4 @@
-[]
+{
+  "ollama_model": "trusted-writer",
+  "items": []
+}
