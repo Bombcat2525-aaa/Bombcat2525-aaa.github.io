@@ -1,12 +1,12 @@
 {
-  "auto_post_enabled": false,
+  "auto_post_enabled": true,
   "post_interval": "1日ごと",
   "manual_mode": true,
   "git_conflict_detected": false,
   "warning_message": "5分ごとの投稿はテスト用です。通常運用では1日1記事を推奨します。",
   "last_run_at": "2026-05-10T17:52:31",
   "post_frequency": "5m",
-  "article_source_mode": "manual_title",
-  "manual_title": "CGを学べるおすすめ専門学校",
+  "article_source_mode": "auto_keyword",
+  "manual_title": "",
   "last_keyword_update_at": "2026-05-10T17:39:10"
 }
