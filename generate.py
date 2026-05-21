@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-記事自動生成スクリプト (Pythonのみ)
-- 外部の信頼できる情報源から参照情報を取得
-- 参照情報の取得状況を記事に明記
-- 参照0件時はAI推測生成を禁止し、固定の注意本文を出力
-- postsフォルダへ保存
-- index.htmlへ記事一覧を自動追加
-- Gitへ自動コミット・プッシュ
-- Windows対応
+記事自動生成スクリプト
+- 外部参照情報を取得
+- 参照取得状況を記事に明記
+- 参照0件時はAI生成を行わず固定文を出力
+- posts/ に保存
+- index.html を再生成
+- Gitへ自動push可能
 """
 
 import argparse
@@ -23,11 +22,9 @@ import requests
 from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader
 
-# =========================
-# 設定（必要に応じて変更）
-# =========================
 OLLAMA_API_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "trusted-writer"  # 要件: 必ず trusted-writer
+OLLAMA_MODEL = "trusted-writer"
+
 SITE_TITLE = "知識ナビ"
 SITE_DESCRIPTION = "生活や仕事に役立つ情報を、わかりやすく整理してお届けします。"
 
@@ -71,11 +68,11 @@ def sanitize_text(text: str) -> str:
     return text.strip()
 
 
-def safe_print(msg: str):
+def safe_print(message: str):
     try:
-        print(sanitize_text(str(msg)))
+        print(sanitize_text(str(message)))
     except Exception:
-        print("[WARN] ログ出力時に問題が発生しました。")
+        print("[WARN] log output failed")
 
 
 def slugify(text: str) -> str:
@@ -93,11 +90,13 @@ def search_candidate_urls(query: str) -> list[str]:
     search_url = f"https://duckduckgo.com/html/?q={quote_plus(query)}"
     headers = {"User-Agent": USER_AGENT}
     urls = []
+
     try:
-        r = requests.get(search_url, headers=headers, timeout=REQUEST_TIMEOUT)
-        r.raise_for_status()
-        r.encoding = r.apparent_encoding
-        soup = BeautifulSoup(r.text, "html.parser")
+        response = requests.get(search_url, headers=headers, timeout=REQUEST_TIMEOUT)
+        response.raise_for_status()
+        response.encoding = response.apparent_encoding
+
+        soup = BeautifulSoup(response.text, "html.parser")
 
         for a in soup.select("a.result__a"):
             href = (a.get("href") or "").strip()
@@ -109,8 +108,9 @@ def search_candidate_urls(query: str) -> list[str]:
                 href = a["href"].strip()
                 if href.startswith("http"):
                     urls.append(href)
+
     except Exception as e:
-        safe_print(f"[WARN] 検索取得失敗: {e}")
+        safe_print(f"[WARN] search failed: {e}")
         return []
 
     seen = set()
@@ -119,15 +119,18 @@ def search_candidate_urls(query: str) -> list[str]:
         if u not in seen:
             seen.add(u)
             dedup.append(u)
+
     return dedup[:MAX_FETCH_URLS]
 
 
 def extract_main_text_from_html(html_text: str) -> str:
     soup = BeautifulSoup(html_text, "html.parser")
+
     for tag in soup(["script", "style", "noscript", "header", "footer", "nav", "aside", "form"]):
         tag.decompose()
 
     target = soup.find("article") or soup.find("main") or soup.body or soup
+
     parts = []
     for p in target.find_all(["p", "li", "h1", "h2", "h3"]):
         t = sanitize_text(p.get_text(" ", strip=True))
@@ -142,7 +145,7 @@ def fetch_text_from_url(url: str) -> str:
     headers = {"User-Agent": USER_AGENT}
     response = requests.get(url, headers=headers, timeout=REQUEST_TIMEOUT)
     response.raise_for_status()
-    response.encoding = response.apparent_encoding  # 要件
+    response.encoding = response.apparent_encoding
 
     ctype = (response.headers.get("Content-Type") or "").lower()
     if "text/html" not in ctype and "application/xhtml+xml" not in ctype:
@@ -152,21 +155,15 @@ def fetch_text_from_url(url: str) -> str:
     return sanitize_text(text)
 
 
-def build_reference_status(used_urls_count: int) -> str:
-    if used_urls_count == 0:
+def build_reference_status(url_count: int) -> str:
+    if url_count == 0:
         return "参照情報は取得できませんでした。この記事は参照情報なしで生成されています。"
-    elif used_urls_count < 3:
-        return f"参照情報は{used_urls_count}件取得されました。十分な件数ではない可能性があります。"
-    else:
-        return f"参照情報は{used_urls_count}件取得されました。"
+    if url_count < 3:
+        return f"参照情報は{url_count}件取得されました。十分な件数ではない可能性があります。"
+    return f"参照情報は{url_count}件取得されました。"
 
 
 def gather_references(title: str, keyword: str) -> tuple[str, list[str], str]:
-    """
-    要件:
-    - 参照不足でも即raiseしない
-    - 戻り値: reference_text, used_urls, reference_status
-    """
     query = f"{title} {keyword}".strip()
     candidate_urls = search_candidate_urls(query)
 
@@ -187,10 +184,10 @@ def gather_references(title: str, keyword: str) -> tuple[str, list[str], str]:
         try:
             text = fetch_text_from_url(url)
             if len(text) >= 200:
-                chunks.append(f"[Source: {url}]\n{sanitize_text(text)}")
+                chunks.append(f"[Source: {url}]\n{text}")
                 used_urls.append(url)
         except Exception as e:
-            safe_print(f"[WARN] URL取得失敗: {url} / {e}")
+            safe_print(f"[WARN] fetch failed: {url} / {e}")
 
     reference_text = sanitize_text("\n\n".join(chunks))
     reference_status = build_reference_status(len(used_urls))
@@ -213,22 +210,23 @@ def build_prompt(title: str, reference_status: str, reference_text: str) -> str:
 
 
 def call_ollama_generate_article(title: str, reference_status: str, reference_text: str) -> str:
-    prompt = build_prompt(title, reference_status, reference_text)
-    payload = {"model": OLLAMA_MODEL, "prompt": prompt, "stream": False}
-    res = requests.post(OLLAMA_API_URL, json=payload, timeout=300)
-    res.raise_for_status()
-    data = res.json()
+    payload = {
+        "model": OLLAMA_MODEL,
+        "prompt": build_prompt(title, reference_status, reference_text),
+        "stream": False,
+    }
+
+    response = requests.post(OLLAMA_API_URL, json=payload, timeout=300)
+    response.raise_for_status()
+    data = response.json()
+
     article = sanitize_text(data.get("response", ""))
     if not article:
-        raise RuntimeError("Ollamaの応答が空です。")
+        raise RuntimeError("Ollama response was empty.")
     return article
 
 
 def build_no_reference_article(title: str) -> str:
-    """
-    要件:
-    参照0件の場合は推測記事を禁止し、固定本文にする
-    """
     return f"""# {title}
 
 この記事を作成するための参照情報が取得できませんでした。
@@ -238,16 +236,37 @@ def build_no_reference_article(title: str) -> str:
 
 
 def append_reference_report(article_md: str, reference_status: str, used_urls: list[str], reference_text: str) -> str:
-    excerpt = sanitize_text(reference_text)[:MAX_REFERENCE_EXCERPT]
+    reference_text_excerpt = sanitize_text(reference_text)[:MAX_REFERENCE_EXCERPT]
 
-    lines = [sanitize_text(article_md), "", "---", "", "## 参照情報の取得状況", "", reference_status, "", "## 参考URL", ""]
-    if len(used_urls) == 0:
-        lines.append("取得できた参考URLはありません。")
+    lines = [
+        sanitize_text(article_md),
+        "",
+        "---",
+        "",
+        "## 参照情報の取得状況",
+        "",
+        reference_status,
+        "",
+        "## 参考URL",
+        "",
+    ]
+
+    if used_urls:
+        for url in used_urls:
+            lines.append(f"- {url}")
     else:
-        for u in used_urls:
-            lines.append(f"- {u}")
+        lines.append("取得できた参考URLはありません。")
 
-    lines += ["", "## 取得した参照情報の抜粋", "", "```text", excerpt if excerpt else "（参照情報は取得できませんでした）", "```", ""]
+    lines.extend([
+        "",
+        "## 取得した参照情報の抜粋",
+        "",
+        "```text",
+        reference_text_excerpt if reference_text_excerpt else "（参照情報は取得できませんでした）",
+        "```",
+        "",
+    ])
+
     return "\n".join(lines)
 
 
@@ -260,7 +279,6 @@ def markdown_to_html_simple(md_text: str) -> str:
     for raw in lines:
         s = raw.rstrip()
 
-        # コードブロック対応
         if s.startswith("```"):
             if in_ul:
                 html_lines.append("</ul>")
@@ -285,24 +303,28 @@ def markdown_to_html_simple(md_text: str) -> str:
             continue
 
         t = s.strip()
+
         if t.startswith("### "):
             if in_ul:
                 html_lines.append("</ul>")
                 in_ul = False
             html_lines.append(f"<h3>{html.escape(t[4:])}</h3>")
             continue
+
         if t.startswith("## "):
             if in_ul:
                 html_lines.append("</ul>")
                 in_ul = False
             html_lines.append(f"<h2>{html.escape(t[3:])}</h2>")
             continue
+
         if t.startswith("# "):
             if in_ul:
                 html_lines.append("</ul>")
                 in_ul = False
             html_lines.append(f"<h1>{html.escape(t[2:])}</h1>")
             continue
+
         if t == "---":
             if in_ul:
                 html_lines.append("</ul>")
@@ -320,6 +342,7 @@ def markdown_to_html_simple(md_text: str) -> str:
         if in_ul:
             html_lines.append("</ul>")
             in_ul = False
+
         html_lines.append(f"<p>{html.escape(t)}</p>")
 
     if in_ul:
@@ -336,9 +359,14 @@ def load_posts_metadata():
         text = p.read_text(encoding="utf-8", errors="ignore")
         title_match = re.search(r"<!--TITLE:(.*?)-->", text)
         date_match = re.search(r"<!--DATE:(.*?)-->", text)
+
         title = title_match.group(1).strip() if title_match else p.stem
         date = date_match.group(1).strip() if date_match else ""
-        posts.append({"title": title, "date": date, "url": f"posts/{p.name}"})
+        posts.append({
+            "title": title,
+            "date": date,
+            "url": f"posts/{p.name}",
+        })
     return posts
 
 
@@ -366,11 +394,16 @@ def render_index_html(posts):
 def git_auto_push(commit_message: str):
     try:
         subprocess.run(["git", "add", "."], check=True)
-        subprocess.run(["git", "commit", "-m", commit_message], check=False, capture_output=True, text=True)
+        subprocess.run(
+            ["git", "commit", "-m", commit_message],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
         subprocess.run(["git", "push"], check=True)
-        safe_print("[OK] Git push 完了")
+        safe_print("[OK] git push completed")
     except Exception as e:
-        safe_print(f"[WARN] Git push失敗: {e}")
+        safe_print(f"[WARN] git push failed: {e}")
 
 
 def main():
@@ -391,54 +424,58 @@ def main():
     date_str = datetime.date.today().isoformat()
     slug = slugify(title)
 
-    safe_print("[1/6] 参照情報を取得中...")
+    safe_print("[1/6] Fetching references...")
     reference_text, used_urls, reference_status = gather_references(title, keyword)
 
-    safe_print(f"[INFO] 参照情報文字数: {len(reference_text)}")
-    safe_print(f"[INFO] 参照取得件数: {len(used_urls)}")
-    safe_print("[INFO] 使用URL一覧:")
-    for u in used_urls:
-        safe_print(f"  - {u}")
+    safe_print(f"[INFO] Reference chars: {len(reference_text)}")
+    safe_print(f"[INFO] Reference count: {len(used_urls)}")
+    safe_print("[INFO] URLs:")
+    for url in used_urls:
+        safe_print(f"  - {url}")
 
     if args.debug:
         (DEBUG_DIR / f"{slug}_reference.txt").write_text(reference_text, encoding="utf-8")
         (DEBUG_DIR / f"{slug}_urls.txt").write_text("\n".join(used_urls), encoding="utf-8")
         (DEBUG_DIR / f"{slug}_status.txt").write_text(reference_status, encoding="utf-8")
-        safe_print(f"[DEBUG] debug保存: {DEBUG_DIR}")
+        safe_print(f"[DEBUG] saved to: {DEBUG_DIR}")
 
-    safe_print("[2/6] 本文生成処理...")
+    safe_print("[2/6] Building article...")
     if len(used_urls) == 0:
-        # 重要要件: 参照0件時はAI推測禁止
         md_article = build_no_reference_article(title)
     else:
         md_article = call_ollama_generate_article(title, reference_status, reference_text)
 
-    safe_print("[3/6] 参照レポートを記事末尾へ追加...")
+    safe_print("[3/6] Appending reference report...")
     md_article = append_reference_report(md_article, reference_status, used_urls, reference_text)
 
-    safe_print("[4/6] HTMLへ変換...")
+    safe_print("[4/6] Rendering HTML...")
     article_html_body = markdown_to_html_simple(md_article)
 
-    safe_print("[5/6] 記事保存...")
+    safe_print("[5/6] Saving post...")
     article_full_html = render_article_html(
-        title=title, date_str=date_str, article_html=article_html_body, slug=slug
+        title=title,
+        date_str=date_str,
+        article_html=article_html_body,
+        slug=slug,
     )
+
     post_file = POSTS_DIR / f"{slug}.html"
     article_full_html = f"<!--TITLE:{title}-->\n<!--DATE:{date_str}-->\n" + article_full_html
     post_file.write_text(article_full_html, encoding="utf-8")
-    safe_print(f"[OK] 保存: {post_file}")
+    safe_print(f"[OK] saved: {post_file}")
 
-    safe_print("[6/6] index.html更新...")
+    safe_print("[6/6] Updating index.html...")
     posts = load_posts_metadata()
-    INDEX_FILE.write_text(render_index_html(posts), encoding="utf-8")
-    safe_print(f"[OK] 更新: {INDEX_FILE}")
+    index_html = render_index_html(posts)
+    INDEX_FILE.write_text(index_html, encoding="utf-8")
+    safe_print(f"[OK] updated: {INDEX_FILE}")
 
     if not args.no_push:
         git_auto_push(f"Add post with reference status: {title}")
     else:
-        safe_print("[SKIP] --no-push のためpushしません。")
+        safe_print("[SKIP] push disabled by --no-push")
 
-    safe_print("完了しました。")
+    safe_print("Done.")
 
 
 if __name__ == "__main__":
